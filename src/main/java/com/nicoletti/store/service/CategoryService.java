@@ -1,6 +1,7 @@
 package com.nicoletti.store.service;
 
 import com.nicoletti.store.entities.Category;
+import com.nicoletti.store.exceptions.EntityNotFoundException;
 import com.nicoletti.store.repositories.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ public class CategoryService {
     }
 
     public Category findById(long id) {
-        return this.categoryRepository.findById(id).orElseThrow();
+        return this.categoryRepository.findById(id).orElseThrow(
+                ()-> new EntityNotFoundException("Category id " + id + " does not exist."));
     }
 }
