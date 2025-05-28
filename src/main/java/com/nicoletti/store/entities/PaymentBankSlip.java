@@ -1,5 +1,6 @@
 package com.nicoletti.store.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.nicoletti.store.enums.PaymentStateType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,7 +18,10 @@ import java.util.Date;
 @Table(name = "tb_pagamento_boleto")
 public class PaymentBankSlip extends Payment {
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date paymentDate;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dueDate;
 
 }

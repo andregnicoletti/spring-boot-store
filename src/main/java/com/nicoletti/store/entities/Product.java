@@ -1,5 +1,6 @@
 package com.nicoletti.store.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,9 +30,11 @@ public class Product {
     )
     private Set<Category> categories = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "id.product")
     private Set<OrderItem> items = new HashSet<>();
 
+    @JsonIgnore
     public List<Order> getOrders() {
         return items.stream().map(item -> item.getOrder()).collect(Collectors.toList());
     }

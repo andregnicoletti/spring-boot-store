@@ -1,5 +1,6 @@
 package com.nicoletti.store.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -13,6 +14,7 @@ import lombok.*;
 @Table(name = "tb_item_pedido")
 public class OrderItem {
 
+    @JsonIgnore
     @EmbeddedId
     private OrderItemId id;
 
@@ -20,6 +22,7 @@ public class OrderItem {
     private Integer quantity;
     private Double price;
 
+    @JsonIgnore
     public Order getOrder() {
         return id.getOrder();
     }
