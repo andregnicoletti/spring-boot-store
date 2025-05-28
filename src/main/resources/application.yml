@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: store
+
+  profiles:
+    active: ${PROFILE:test}
+
+  jpa:
+    open-in-view: false
+
+logging:
+  level:
+    root: ${LOG_LEVEL:INFO}
+
+cors:
+  origins: ${CORS_ORIGINS:http://localhost:5173,http://localhost:3000}
