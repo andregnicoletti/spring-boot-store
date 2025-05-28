@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CategoriaController {
 
     @GetMapping
-    public ResponseEntity<String> getTest() {
+    public ResponseEntity<String> listAll() {
         return ResponseEntity.ok("Teste ok");
     }
 
