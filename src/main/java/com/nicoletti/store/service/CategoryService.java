@@ -13,8 +13,11 @@ public class CategoryService {
 
     private final CategoryRepository categoryRepository;
 
-    public List<Category> listAll(){
+    public List<Category> listAll() {
         return this.categoryRepository.findAll();
     }
 
+    public Category findById(long id) {
+        return this.categoryRepository.findById(id).orElseThrow();
+    }
 }
