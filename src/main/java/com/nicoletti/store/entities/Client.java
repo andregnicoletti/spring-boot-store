@@ -2,12 +2,18 @@ package com.nicoletti.store.entities;
 
 import com.nicoletti.store.enums.ClientType;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tb_cliente")
 public class Client {
@@ -20,10 +26,10 @@ public class Client {
     private String document;
     private ClientType client;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "tb_telefone")
     private Set<String> phones = new HashSet<>();
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<Address> addresses = new HashSet<>();
 }

@@ -1,9 +1,13 @@
 package com.nicoletti.store.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tb_endereco")
 public class Address {
@@ -21,6 +25,7 @@ public class Address {
     @JoinColumn(name = "city_id")
     private City city;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
