@@ -1,6 +1,7 @@
 package com.nicoletti.store.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nicoletti.store.enums.PaymentStateType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,7 @@ public class Payment {
     private Long id;
     private PaymentStateType state;
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "order_id")
     @MapsId
