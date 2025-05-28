@@ -1,10 +1,12 @@
 package com.nicoletti.store.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -16,7 +18,8 @@ public class Category {
     private Long id;
     private String name;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "categories")
-    private List<Product> products = new ArrayList<>();
+    private Set<Product> products = new HashSet<>();
 
 }
