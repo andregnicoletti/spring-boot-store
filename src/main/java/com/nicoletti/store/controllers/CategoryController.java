@@ -2,14 +2,19 @@ package com.nicoletti.store.controllers;
 
 import com.nicoletti.store.dtos.CategoryDTO;
 import com.nicoletti.store.entities.Category;
+import com.nicoletti.store.exceptions.ExceptionsCodes;
 import com.nicoletti.store.service.CategoryService;
+import com.nicoletti.store.utils.MessageUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Locale;
 
 @RequiredArgsConstructor
 @RestController
@@ -20,6 +25,9 @@ public class CategoryController {
 
     @GetMapping
     public ResponseEntity<List<Category>> listAll() {
+
+        System.out.println(MessageUtils.t(ExceptionsCodes.GREETING, "a"));
+
         List<Category> categories = categoryService.listAll();
         return ResponseEntity.ok(categories);
     }

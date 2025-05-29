@@ -2,8 +2,8 @@ package com.nicoletti.store.service;
 
 import com.nicoletti.store.dtos.CategoryDTO;
 import com.nicoletti.store.entities.Category;
-import com.nicoletti.store.exceptions.ServiceException;
 import com.nicoletti.store.exceptions.EntityNotFoundException;
+import com.nicoletti.store.exceptions.ServiceException;
 import com.nicoletti.store.repositories.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -50,7 +50,7 @@ public class CategoryService {
             this.findById(id);
             categoryRepository.deleteById(id);
         } catch (Exception e) {
-            throw new ServiceException("Erro ao deletar categoria: " + id );
+            throw new ServiceException("Erro ao deletar categoria: " + id);
         }
     }
 }
