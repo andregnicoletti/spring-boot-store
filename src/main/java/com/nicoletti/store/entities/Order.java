@@ -1,6 +1,7 @@
 package com.nicoletti.store.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,18 +27,18 @@ public class Order {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private Date instant;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "order")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "order", fetch = FetchType.EAGER)
     private Payment payment;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "address_id")
     private Address address;
 
-    @OneToMany(mappedBy = "id.order")
+    @OneToMany(mappedBy = "id.order", fetch = FetchType.EAGER)
     private Set<OrderItem> itens = new HashSet<>();
 
 }

@@ -27,6 +27,7 @@ public class OrderItem {
         return id.getOrder();
     }
 
+    @JsonIgnore
     public Product getProduct() {
         return id.getProduct();
     }
