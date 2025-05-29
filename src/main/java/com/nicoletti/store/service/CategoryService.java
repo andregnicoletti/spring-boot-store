@@ -2,7 +2,7 @@ package com.nicoletti.store.service;
 
 import com.nicoletti.store.dtos.CategoryDTO;
 import com.nicoletti.store.entities.Category;
-import com.nicoletti.store.exceptions.CategoryServiceException;
+import com.nicoletti.store.exceptions.ServiceException;
 import com.nicoletti.store.exceptions.EntityNotFoundException;
 import com.nicoletti.store.repositories.CategoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +34,23 @@ public class CategoryService {
             Category save = this.categoryRepository.save(new Category(null, dto.name(), null));
             return new CategoryDTO(save.getId(), save.getName());
         }
-        throw new CategoryServiceException("Category " + dto.name() + " name already exists.");
+        throw new ServiceException("Category " + dto.name() + " name already exists.");
+    }
+
+    @Transactional
+    public CategoryDTO update(long id, CategoryDTO dto) {
+        Category category = this.findById(id);
+        category.setName(dto.name());
+        this.categoryRepository.save(category);
+        return new CategoryDTO(category.getId(), category.getName());
+    }
+
+    public void delete(long id) {
+        try {
+            this.findById(id);
+            categoryRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new ServiceException("Erro ao deletar categoria: " + id );
+        }
     }
 }

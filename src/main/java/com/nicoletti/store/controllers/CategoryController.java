@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/categorias")
-public class CategoriaController {
+public class CategoryController {
 
     private final CategoryService categoryService;
 
@@ -38,6 +38,18 @@ public class CategoriaController {
                 .buildAndExpand(category.id())
                 .toUri();
         return ResponseEntity.created(uri).body(category);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoryDTO> updateCategory(@PathVariable long id, @RequestBody CategoryDTO dto) {
+        CategoryDTO category = categoryService.update(id, dto);
+        return ResponseEntity.ok(category);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> updateCategory(@PathVariable long id) {
+        categoryService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 
