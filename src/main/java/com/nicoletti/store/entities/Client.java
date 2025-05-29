@@ -25,7 +25,7 @@ public class Client {
     private String name;
     private String email;
     private String document;
-    private ClientType client;
+    private ClientType clientType;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "tb_telefone")
