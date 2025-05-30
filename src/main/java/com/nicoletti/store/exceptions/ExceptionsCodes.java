@@ -9,6 +9,8 @@ public interface ExceptionsCodes {
 
     // CLIENT SERVICE
     String CLIENT_ID_DOES_NOT_EXISTS = "CLI-001";
+    String CLIENT_NAME_ALREADY_EXISTS = "CLI-002";
+    String COULD_NOT_DELETE_CLIENT = "CLI-003";
 
     // ORDER SERVICE
     String ORDER_ID_DOES_NOT_EXISTS = "ORD-001";

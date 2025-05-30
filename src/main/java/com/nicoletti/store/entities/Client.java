@@ -22,9 +22,15 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+
+    @Column(unique = true)
     private String email;
+
+    @Column(unique = true)
     private String document;
+
     private ClientType clientType;
 
     @ElementCollection(fetch = FetchType.EAGER)

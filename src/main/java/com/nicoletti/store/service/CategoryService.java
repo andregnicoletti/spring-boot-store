@@ -60,7 +60,7 @@ public class CategoryService {
             this.findById(id);
             categoryRepository.deleteById(id);
         } catch (Exception e) {
-            throw new GenericException(ExceptionsCodes.COULD_NOT_DELETE_CATEGORY, id, e.getMessage());
+            throw new GenericException(ExceptionsCodes.COULD_NOT_DELETE_CATEGORY, id);
         }
     }
 
