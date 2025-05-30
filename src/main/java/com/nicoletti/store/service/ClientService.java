@@ -1,9 +1,11 @@
 package com.nicoletti.store.service;
 
-import com.nicoletti.store.dtos.ClientDTO;
+import com.nicoletti.store.dtos.ClientMinDTO;
+import com.nicoletti.store.dtos.ClientNewDTO;
 import com.nicoletti.store.entities.Client;
 import com.nicoletti.store.exceptions.ExceptionsCodes;
 import com.nicoletti.store.exceptions.GenericException;
+import com.nicoletti.store.mappers.AddressMapper;
 import com.nicoletti.store.mappers.ClientMapper;
 import com.nicoletti.store.repositories.ClientRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ public class ClientService {
 
     private final ClientRepository clientRepository;
     private final ClientMapper clientMapper;
+    private final AddressMapper addressMapper;
 
     @Transactional
     public List<Client> listAll() {
@@ -29,24 +32,26 @@ public class ClientService {
     }
 
     @Transactional
-    public ClientDTO findById(long id) {
+    public ClientMinDTO findById(long id) {
         Client client = this.clientRepository.findById(id).orElseThrow(
                 () -> new GenericException(ExceptionsCodes.CLIENT_ID_DOES_NOT_EXISTS, id));
         return clientMapper.toDto(client);
     }
 
     @Transactional
-    public ClientDTO create(ClientDTO dto) {
+    public ClientMinDTO create(ClientNewDTO dto) {
         Optional<Client> byName = this.clientRepository.findByName(dto.name());
         if (byName.isEmpty()) {
-            Client save = this.clientRepository.save(clientMapper.toEntity(dto));
+            Client entity = this.clientMapper.toEntity(dto);
+            entity.getAddresses().stream().forEach(address -> address.setId(null));
+            Client save = this.clientRepository.save(entity);
             return clientMapper.toDto(save);
         }
         throw new GenericException(ExceptionsCodes.CLIENT_NAME_ALREADY_EXISTS, dto.name());
     }
 
     @Transactional
-    public ClientDTO update(long id, ClientDTO dto) {
+    public ClientMinDTO update(long id, ClientMinDTO dto) {
         this.findById(id);
         Client Client = clientRepository.findById(id).get();
         Client.setName(dto.name());
@@ -63,7 +68,7 @@ public class ClientService {
         }
     }
 
-    public Page<ClientDTO> findPage(Integer page, Integer size, String orderBy, String direction) {
+    public Page<ClientMinDTO> findPage(Integer page, Integer size, String orderBy, String direction) {
         PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.valueOf(direction), orderBy);
         return clientRepository.findAll(pageRequest).map(clientMapper::toDto);
     }

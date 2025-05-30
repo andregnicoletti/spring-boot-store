@@ -37,7 +37,7 @@ public class Client {
     @CollectionTable(name = "tb_telefone")
     private Set<String> phones = new HashSet<>();
 
-    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Address> addresses = new HashSet<>();
 
     @JsonIgnore
