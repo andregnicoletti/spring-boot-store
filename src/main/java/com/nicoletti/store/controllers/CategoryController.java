@@ -25,9 +25,6 @@ public class CategoryController {
 
     @GetMapping
     public ResponseEntity<List<Category>> listAll() {
-
-        System.out.println(MessageUtils.t(ExceptionsCodes.GREETING, "a"));
-
         List<Category> categories = categoryService.listAll();
         return ResponseEntity.ok(categories);
     }

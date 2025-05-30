@@ -2,7 +2,6 @@ package com.nicoletti.store.controllers;
 
 import com.nicoletti.store.dtos.RestErrorDTO;
 import com.nicoletti.store.exceptions.ServiceException;
-import com.nicoletti.store.exceptions.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

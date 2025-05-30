@@ -1,7 +1,6 @@
 package com.nicoletti.store.service;
 
 import com.nicoletti.store.entities.Order;
-import com.nicoletti.store.exceptions.EntityNotFoundException;
 import com.nicoletti.store.repositories.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
