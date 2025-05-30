@@ -24,14 +24,14 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @GetMapping
-    public ResponseEntity<List<Category>> listAll() {
-        List<Category> categories = categoryService.listAll();
+    public ResponseEntity<List<CategoryDTO>> findAll() {
+        List<CategoryDTO> categories = categoryService.findAll();
         return ResponseEntity.ok(categories);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Category> findById(@PathVariable long id) {
-        Category category = categoryService.findById(id);
+    public ResponseEntity<CategoryDTO> findById(@PathVariable long id) {
+        CategoryDTO category = categoryService.findById(id);
         return ResponseEntity.ok(category);
     }
 

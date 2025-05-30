@@ -9,8 +9,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -18,13 +20,16 @@ public class CategoryService {
 
     private final CategoryRepository categoryRepository;
 
-    public List<Category> listAll() {
-        return this.categoryRepository.findAll();
+    public List<CategoryDTO> findAll() {
+        return this.categoryRepository.findAll().stream()
+                .map(i -> new CategoryDTO(i.getId(), i.getName()))
+                .collect(Collectors.toList());
     }
 
-    public Category findById(long id) {
-        return this.categoryRepository.findById(id).orElseThrow(
+    public CategoryDTO findById(long id) {
+        Category category = this.categoryRepository.findById(id).orElseThrow(
                 () -> new ServiceException(ExceptionsCodes.ID_CATEGORY_DOES_NOT_EXISTS, id));
+        return new CategoryDTO(category.getId(), category.getName());
     }
 
     @Transactional
