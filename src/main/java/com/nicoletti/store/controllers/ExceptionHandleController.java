@@ -13,16 +13,16 @@ import java.time.LocalDate;
 @RestControllerAdvice
 public class ExceptionHandleController {
 
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<RestErrorDTO> entityNotFoundException(EntityNotFoundException e, HttpServletRequest request) {
-        RestErrorDTO body = new RestErrorDTO(
-                LocalDate.now(),
-                HttpStatus.NOT_FOUND.value(),
-                "Entity not found",
-                e.getMessage()
-        );
-        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
-    }
+//    @ExceptionHandler(EntityNotFoundException.class)
+//    public ResponseEntity<RestErrorDTO> entityNotFoundException(EntityNotFoundException e, HttpServletRequest request) {
+//        RestErrorDTO body = new RestErrorDTO(
+//                LocalDate.now(),
+//                HttpStatus.NOT_FOUND.value(),
+//                "Entity not found",
+//                e.getMessage()
+//        );
+//        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+//    }
 
     @ExceptionHandler(ServiceException.class)
     public ResponseEntity<RestErrorDTO> serviceException(ServiceException e, HttpServletRequest request) {

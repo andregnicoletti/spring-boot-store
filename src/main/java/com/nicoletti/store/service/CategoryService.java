@@ -4,6 +4,7 @@ import com.nicoletti.store.dtos.CategoryDTO;
 import com.nicoletti.store.entities.Category;
 import com.nicoletti.store.exceptions.ExceptionsCodes;
 import com.nicoletti.store.exceptions.ServiceException;
+import com.nicoletti.store.mappers.CategoryMapper;
 import com.nicoletti.store.repositories.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,17 +20,18 @@ import java.util.stream.Collectors;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final CategoryMapper categoryMapper;
 
     public List<CategoryDTO> findAll() {
         return this.categoryRepository.findAll().stream()
-                .map(i -> new CategoryDTO(i.getId(), i.getName()))
+                .map(category -> categoryMapper.toDto(category))
                 .collect(Collectors.toList());
     }
 
     public CategoryDTO findById(long id) {
         Category category = this.categoryRepository.findById(id).orElseThrow(
                 () -> new ServiceException(ExceptionsCodes.ID_CATEGORY_DOES_NOT_EXISTS, id));
-        return new CategoryDTO(category.getId(), category.getName());
+        return categoryMapper.toDto(category);
     }
 
     @Transactional
@@ -37,17 +39,18 @@ public class CategoryService {
         Optional<Category> byName = this.categoryRepository.findByName(dto.name());
         if (byName.isEmpty()) {
             Category save = this.categoryRepository.save(new Category(null, dto.name(), null));
-            return new CategoryDTO(save.getId(), save.getName());
+            return categoryMapper.toDto(save);
         }
         throw new ServiceException(ExceptionsCodes.CATEGORY_NAME_ALREADY_EXISTS, dto.name());
     }
 
     @Transactional
     public CategoryDTO update(long id, CategoryDTO dto) {
-        Category category = this.findById(id);
+        this.findById(id);
+        Category category = categoryRepository.findById(id).get();
         category.setName(dto.name());
         this.categoryRepository.save(category);
-        return new CategoryDTO(category.getId(), category.getName());
+        return categoryMapper.toDto(category);
     }
 
     public void delete(long id) {
