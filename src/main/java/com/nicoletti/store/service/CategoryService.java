@@ -7,10 +7,12 @@ import com.nicoletti.store.exceptions.ServiceException;
 import com.nicoletti.store.mappers.CategoryMapper;
 import com.nicoletti.store.repositories.CategoryRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -61,4 +63,12 @@ public class CategoryService {
             throw new ServiceException(ExceptionsCodes.COULD_NOT_DELETE_CATEGORY, id, e.getMessage());
         }
     }
+
+    public Page<CategoryDTO> findPage(Integer page, Integer size, String orderBy, String direction) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.valueOf(direction), orderBy);
+        return categoryRepository.findAll(pageRequest).map(categoryMapper::toDto);
+    }
+
+
+
 }

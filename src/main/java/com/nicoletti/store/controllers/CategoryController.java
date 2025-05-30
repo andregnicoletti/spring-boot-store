@@ -8,6 +8,7 @@ import com.nicoletti.store.utils.MessageUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -28,6 +29,18 @@ public class CategoryController {
         List<CategoryDTO> categories = categoryService.findAll();
         return ResponseEntity.ok(categories);
     }
+
+    @GetMapping("/page")
+    public ResponseEntity<Page<CategoryDTO>> findPage(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "size", defaultValue = "6") Integer size,
+            @RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
+            @RequestParam(value = "direction", defaultValue = "ASC") String direction
+    ) {
+        Page<CategoryDTO> categories = categoryService.findPage(page, size, orderBy, direction);
+        return ResponseEntity.ok(categories);
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<CategoryDTO> findById(@PathVariable long id) {
@@ -56,6 +69,5 @@ public class CategoryController {
         categoryService.delete(id);
         return ResponseEntity.noContent().build();
     }
-
 
 }
