@@ -81,7 +81,7 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.mapstruct</groupId>More actions
+			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
 			<version>${mapstruct.version}</version>
 		</dependency>
@@ -100,7 +100,7 @@
 
 	<build>
 		<plugins>
-            <plugin>More actions
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
@@ -122,7 +122,7 @@
                             <artifactId>lombok-mapstruct-binding</artifactId>
                             <version>${mapstruct-lombok.version}</version>
                         </path>
-                    </annotationProcessorPaths>More actions
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
 
