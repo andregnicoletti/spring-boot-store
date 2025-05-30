@@ -2,7 +2,7 @@ package com.nicoletti.store.service;
 
 import com.nicoletti.store.entities.Order;
 import com.nicoletti.store.exceptions.ExceptionsCodes;
-import com.nicoletti.store.exceptions.ServiceException;
+import com.nicoletti.store.exceptions.GenericException;
 import com.nicoletti.store.repositories.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +24,6 @@ public class OrderService {
     @Transactional
     public Order findById(long id) {
         return this.orderRepository.findById(id).orElseThrow(
-                () -> new ServiceException(ExceptionsCodes.ORDER_ID_DOES_NOT_EXISTS, id));
+                () -> new GenericException(ExceptionsCodes.ORDER_ID_DOES_NOT_EXISTS, id));
     }
 }
