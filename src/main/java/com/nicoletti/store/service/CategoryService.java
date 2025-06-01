@@ -2,7 +2,7 @@ package com.nicoletti.store.service;
 
 import com.nicoletti.store.dtos.CategoryDTO;
 import com.nicoletti.store.entities.Category;
-import com.nicoletti.store.exceptions.ExceptionsCodes;
+import com.nicoletti.store.utils.ExceptionsErrors;
 import com.nicoletti.store.exceptions.GenericException;
 import com.nicoletti.store.mappers.CategoryMapper;
 import com.nicoletti.store.repositories.CategoryRepository;
@@ -32,7 +32,7 @@ public class CategoryService {
 
     public CategoryDTO findById(long id) {
         Category category = this.categoryRepository.findById(id).orElseThrow(
-                () -> new GenericException(ExceptionsCodes.ID_CATEGORY_DOES_NOT_EXISTS, id));
+                () -> new GenericException(ExceptionsErrors.ID_CATEGORY_DOES_NOT_EXISTS, id));
         return categoryMapper.toDto(category);
     }
 
@@ -43,7 +43,7 @@ public class CategoryService {
             Category save = this.categoryRepository.save(new Category(null, dto.name(), null));
             return categoryMapper.toDto(save);
         }
-        throw new GenericException(ExceptionsCodes.CATEGORY_NAME_ALREADY_EXISTS, dto.name());
+        throw new GenericException(ExceptionsErrors.CATEGORY_NAME_ALREADY_EXISTS, dto.name());
     }
 
     @Transactional
@@ -60,7 +60,7 @@ public class CategoryService {
             this.findById(id);
             categoryRepository.deleteById(id);
         } catch (Exception e) {
-            throw new GenericException(ExceptionsCodes.COULD_NOT_DELETE_CATEGORY, id);
+            throw new GenericException(ExceptionsErrors.COULD_NOT_DELETE_CATEGORY, id);
         }
     }
 

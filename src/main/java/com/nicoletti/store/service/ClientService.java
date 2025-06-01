@@ -1,9 +1,10 @@
 package com.nicoletti.store.service;
 
+import com.nicoletti.store.dtos.ClientDTO;
 import com.nicoletti.store.dtos.ClientMinDTO;
 import com.nicoletti.store.dtos.ClientNewDTO;
 import com.nicoletti.store.entities.Client;
-import com.nicoletti.store.exceptions.ExceptionsCodes;
+import com.nicoletti.store.utils.ExceptionsErrors;
 import com.nicoletti.store.exceptions.GenericException;
 import com.nicoletti.store.mappers.AddressMapper;
 import com.nicoletti.store.mappers.ClientMapper;
@@ -27,14 +28,14 @@ public class ClientService {
     private final AddressMapper addressMapper;
 
     @Transactional
-    public List<Client> listAll() {
-        return this.clientRepository.findAll();
+    public List<ClientDTO> listAll() {
+        return clientMapper.toDtoFullList(this.clientRepository.findAll());
     }
 
     @Transactional
     public ClientMinDTO findById(long id) {
         Client client = this.clientRepository.findById(id).orElseThrow(
-                () -> new GenericException(ExceptionsCodes.CLIENT_ID_DOES_NOT_EXISTS, id));
+                () -> new GenericException(ExceptionsErrors.CLIENT_ID_DOES_NOT_EXISTS, id));
         return clientMapper.toDto(client);
     }
 
@@ -47,7 +48,7 @@ public class ClientService {
             Client save = this.clientRepository.save(entity);
             return clientMapper.toDto(save);
         }
-        throw new GenericException(ExceptionsCodes.CLIENT_NAME_ALREADY_EXISTS, dto.name());
+        throw new GenericException(ExceptionsErrors.CLIENT_NAME_ALREADY_EXISTS, dto.name());
     }
 
     @Transactional
@@ -64,7 +65,7 @@ public class ClientService {
             this.findById(id);
             clientRepository.deleteById(id);
         } catch (Exception e) {
-            throw new GenericException(ExceptionsCodes.COULD_NOT_DELETE_CLIENT, id);
+            throw new GenericException(ExceptionsErrors.COULD_NOT_DELETE_CLIENT, id);
         }
     }
 

@@ -1,6 +1,6 @@
-package com.nicoletti.store.exceptions;
+package com.nicoletti.store.utils;
 
-public interface ExceptionsCodes {
+public interface ExceptionsErrors {
 
     // CATEGORY SERVICE
     String ID_CATEGORY_DOES_NOT_EXISTS = "CAT-001";

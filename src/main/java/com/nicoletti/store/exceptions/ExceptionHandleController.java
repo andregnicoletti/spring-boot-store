@@ -3,6 +3,7 @@ package com.nicoletti.store.exceptions;
 import com.nicoletti.store.dtos.GenericErrorDTO;
 import com.nicoletti.store.dtos.RestErrorDTO;
 import com.nicoletti.store.dtos.ValidationErrorDTO;
+import com.nicoletti.store.utils.ExceptionsErrors;
 import com.nicoletti.store.utils.MessageUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -22,8 +23,8 @@ public class ExceptionHandleController {
         ValidationErrorDTO body = new ValidationErrorDTO(
                 LocalDate.now(),
                 HttpStatus.BAD_REQUEST.value(),
-                ExceptionsCodes.GENERAL_VALIDATION_ERROR,
-                MessageUtils.t(ExceptionsCodes.GENERAL_VALIDATION_ERROR)
+                ExceptionsErrors.GENERAL_VALIDATION_ERROR,
+                MessageUtils.t(ExceptionsErrors.GENERAL_VALIDATION_ERROR)
         );
         e.getBindingResult().getFieldErrors().stream().forEach(err -> body.addErrors(err.getField(), err.getCode()));
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);

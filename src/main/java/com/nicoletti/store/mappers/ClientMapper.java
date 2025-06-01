@@ -1,5 +1,6 @@
 package com.nicoletti.store.mappers;
 
+import com.nicoletti.store.dtos.ClientDTO;
 import com.nicoletti.store.dtos.ClientMinDTO;
 import com.nicoletti.store.dtos.ClientNewDTO;
 import com.nicoletti.store.entities.Client;
@@ -19,7 +20,11 @@ public interface ClientMapper {
 
     ClientMinDTO toDto(Client entity);
 
+    ClientDTO toDtoFull(Client entity);
+
     List<ClientNewDTO> toDtoList(List<Client> entities);
+
+    List<ClientDTO> toDtoFullList(List<Client> entities);
 
     List<Client> toEntityList(List<ClientNewDTO> dtos);
 

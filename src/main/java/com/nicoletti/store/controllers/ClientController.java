@@ -1,5 +1,6 @@
 package com.nicoletti.store.controllers;
 
+import com.nicoletti.store.dtos.ClientDTO;
 import com.nicoletti.store.dtos.ClientMinDTO;
 import com.nicoletti.store.dtos.ClientNewDTO;
 import com.nicoletti.store.entities.Client;
@@ -22,8 +23,8 @@ public class ClientController {
     private final ClientService clientService;
 
     @GetMapping
-    public ResponseEntity<List<Client>> listAll() {
-        List<Client> clients = clientService.listAll();
+    public ResponseEntity<List<ClientDTO>> listAll() {
+        List<ClientDTO> clients = clientService.listAll();
         return ResponseEntity.ok(clients);
     }
 
@@ -54,6 +55,6 @@ public class ClientController {
         clientService.delete(id);
         return ResponseEntity.noContent().build();
     }
-    
+
 
 }
