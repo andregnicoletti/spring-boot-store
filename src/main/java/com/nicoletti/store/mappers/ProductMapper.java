@@ -1,19 +1,33 @@
 package com.nicoletti.store.mappers;
 
 import com.nicoletti.store.dtos.AddressDTO;
+import com.nicoletti.store.dtos.ProductDTO;
+import com.nicoletti.store.dtos.ProductMinDTO;
 import com.nicoletti.store.entities.Address;
+import com.nicoletti.store.entities.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
+import java.util.List;
 import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface ProductMapper {
 
-    Set<Address> toEntity(Set<AddressDTO> dto);
+    ProductDTO toDto(Product entity);
 
-    Set<AddressDTO> toDto(Set<Address> entity);
+    Product toEntity(ProductDTO dto);
 
-    void updateFromDto(Set<AddressDTO> dto, @MappingTarget Set<Address> entity);
+    List<ProductDTO> toDtoList(List<Product> entities);
 
+    ProductMinDTO toDtoMin(Product entity);
+
+    List<ProductMinDTO> toDtoMinList(List<Product> entities);
+
+//    Set<Address> toEntity(Set<AddressDTO> dto);
+//
+//    Set<AddressDTO> toDto(Set<Address> entity);
+//
+//    void updateFromDto(Set<AddressDTO> dto, @MappingTarget Set<Address> entity);
+//
 }

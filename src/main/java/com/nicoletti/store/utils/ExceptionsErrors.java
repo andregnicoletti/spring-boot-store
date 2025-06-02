@@ -15,6 +15,9 @@ public interface ExceptionsErrors {
     // ORDER SERVICE
     String ORDER_ID_DOES_NOT_EXISTS = "ORD-001";
 
+    // PRODUC SERVICE
+    String PRODUCT_ID_DOES_NOT_EXISTS = "PRO-001";
+
     // VALIDATIONS
     String GENERAL_VALIDATION_ERROR = "VLD-001";
 }
