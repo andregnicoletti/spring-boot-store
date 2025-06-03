@@ -1,6 +1,7 @@
 package com.nicoletti.store.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.nicoletti.store.enums.PaymentStateType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

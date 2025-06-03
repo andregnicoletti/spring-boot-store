@@ -25,9 +25,17 @@ public class OrderItem {
     private Integer quantity;
     private Double price;
 
+    public void setOrder(Order order) {
+        this.id.setOrder(order);
+    }
+
     @JsonIgnore
     public Order getOrder() {
         return id.getOrder();
+    }
+
+    public void setProduct(Product product) {
+        this.id.setProduct(product);
     }
 
     @JsonIgnore

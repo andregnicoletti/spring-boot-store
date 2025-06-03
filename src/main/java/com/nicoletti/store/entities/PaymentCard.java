@@ -1,5 +1,6 @@
 package com.nicoletti.store.entities;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
