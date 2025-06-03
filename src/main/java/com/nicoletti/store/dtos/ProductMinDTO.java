@@ -6,6 +6,6 @@ public record ProductMinDTO(
         Long id,
         String name,
         Double price,
-        Long categoryId
+        Set<Long> categoriesId
 ) {
 }

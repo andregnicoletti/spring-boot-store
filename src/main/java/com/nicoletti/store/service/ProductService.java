@@ -29,18 +29,20 @@ public class ProductService {
     private final CategoryRepository categoryRepository;
     private final ProductMapper productMapper;
 
-    @Transactional
+    @Transactional(readOnly = true)
     public ProductDTO findById(long id) {
         Product product = this.productRepository.findById(id).orElseThrow(
                 () -> new GenericException(ExceptionsErrors.PRODUCT_ID_DOES_NOT_EXISTS, id));
         return productMapper.toDto(product);
     }
 
+    @Transactional(readOnly = true)
     public List<ProductMinDTO> findAll() {
         List<Product> all = this.productRepository.findAll();
         return productMapper.toDtoMinList(all);
     }
 
+    @Transactional(readOnly = true)
     public Page<ProductMinDTO> findPage(ProductFindDTO productFindDTO, Integer page, Integer size, String orderBy, String direction) {
         PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.valueOf(direction), orderBy);
         List<Category> categories = categoryRepository.findAllById(productFindDTO.categoriesId());
