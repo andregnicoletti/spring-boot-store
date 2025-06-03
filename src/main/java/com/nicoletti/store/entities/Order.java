@@ -41,4 +41,10 @@ public class Order {
     @OneToMany(mappedBy = "id.order", fetch = FetchType.EAGER)
     private Set<OrderItem> itens = new HashSet<>();
 
+    public double getTotalPrice() {
+        return itens.stream()
+                .mapToDouble(OrderItem::getSubTotal)
+                .sum();
+    }
+
 }
